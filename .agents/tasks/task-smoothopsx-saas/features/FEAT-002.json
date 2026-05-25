@@ -1,0 +1,38 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Build the complete landing page with hero section, features section, pricing section (Free/Pro/Enterprise tiers), and footer. Also build the authentication pages (sign in and sign up) with NextAuth integration, and the user registration API endpoint.",
+  "status": "pending",
+  "steps": [
+    "Create components/ui/Button.tsx - reusable button component with variants (primary, secondary, outline, ghost) and sizes (sm, md, lg), fully typed with TypeScript",
+    "Create components/ui/Card.tsx - reusable card component with header, body, footer slots",
+    "Create components/ui/Badge.tsx - badge/chip component for severity levels and tags with color variants",
+    "Create components/ui/Input.tsx - form input component with label, error state, and proper TypeScript types",
+    "Create components/landing/Hero.tsx - hero section with headline 'Stay compliant. Ship faster.', subheadline explaining the value prop (auto-monitors legal/regulatory changes, plain-English action items), CTA buttons (Get Started Free, See How It Works), subtle gradient background",
+    "Create components/landing/Features.tsx - features grid showing: Real-time Monitoring, Plain-English Summaries, Developer Action Items, Multi-Region Coverage, Tech Stack Filtering, Compliance Tracking. Each with an icon (use simple SVG icons or emoji), title, and description",
+    "Create components/landing/Pricing.tsx - three-tier pricing: Free (up to 3 regulations, basic alerts, 1 region), Pro $29/mo (unlimited regulations, all regions, priority alerts, team features), Enterprise (custom, dedicated support, API access, custom integrations). Each with feature list and CTA button",
+    "Create components/landing/Footer.tsx - footer with brand name, tagline, navigation links (Product, Company, Legal sections), and copyright",
+    "Create components/landing/Navbar.tsx - navigation bar with SmoothOpsX logo/text, nav links (Features, Pricing), and Sign In / Get Started buttons. Mobile-responsive with hamburger menu",
+    "Update app/page.tsx to compose the landing page from all landing components, with proper metadata",
+    "Create app/(auth)/signin/page.tsx - sign in form with email/password fields, submit handler using next-auth/react signIn(), link to sign up, error handling for invalid credentials",
+    "Create app/(auth)/signup/page.tsx - sign up form with name, email, password, confirm password fields. Client-side validation with zod. Calls POST /api/auth/register then redirects to sign in",
+    "Create app/api/auth/register/route.ts - POST endpoint that validates input with zod, hashes password with bcryptjs, creates user in database via Prisma, returns success/error JSON response",
+    "Create app/(auth)/layout.tsx - centered auth layout with card-style form container and link back to home"
+  ],
+  "acceptance_criteria": [
+    "Landing page renders with hero, features, pricing, and footer sections",
+    "Navigation bar is responsive with mobile menu",
+    "Sign in page has email/password form that calls NextAuth signIn",
+    "Sign up page has registration form with validation",
+    "API route /api/auth/register creates users with hashed passwords",
+    "Dark mode is supported across all components",
+    "All components use TypeScript with proper types",
+    "Pages are responsive on mobile"
+  ],
+  "verification": [
+    "npx tsc --noEmit passes without type errors",
+    "npm run build succeeds"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

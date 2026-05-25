@@ -1,0 +1,41 @@
+{
+  "id": "FEAT-003",
+  "type": "feat",
+  "description": "Build the onboarding flow (3-step wizard), the compliance feed dashboard with filtering/search, the detail view for regulations, the action items tracking system, and the email alert preferences settings page.",
+  "status": "pending",
+  "steps": [
+    "Create app/onboarding/page.tsx - multi-step onboarding wizard (client component) with 3 steps: Step 1 (Business Type: SaaS, E-commerce, Mobile App, Fintech, Healthcare, EdTech, Marketplace, Other - selectable cards), Step 2 (Tech Stack: iOS/App Store, Android/Play Store, Web App, AWS, GCP, Azure, Stripe/Payments, etc. - multi-select checkboxes/chips), Step 3 (Regions: EU/GDPR, US-California/CCPA, US-Federal, UK, Canada, Australia, Brazil, India - multi-select with flag icons). Include a progress bar, back/next navigation, and submit that calls POST /api/onboarding",
+    "Create app/api/onboarding/route.ts - POST endpoint that updates the current user's businessType, techStack, and regions fields in the database",
+    "Create components/dashboard/RegulationCard.tsx - card component showing: regulation name, date (relative like '2 days ago'), severity badge (critical=red, warning=amber, info=blue), affected area tag, 2-line summary truncated. Clickable to go to detail view",
+    "Create components/dashboard/FilterBar.tsx - filter bar with: severity multi-select (Critical, Warning, Info), category dropdown (Privacy, App Store, Security, Accessibility, Healthcare), date range selector, and a search input field. All filters update URL query params",
+    "Create components/dashboard/ComplianceStats.tsx - stats bar showing: total regulations tracked, action items pending, compliance percentage (completed/total action items), critical alerts count",
+    "Create app/dashboard/page.tsx - protected page (redirect to signin if not authenticated) showing ComplianceStats at top, FilterBar below, then a list of RegulationCards. Fetches data from /api/regulations with filter params. Show empty state if user hasn't completed onboarding (link to /onboarding)",
+    "Create app/dashboard/layout.tsx - dashboard layout with sidebar navigation (Dashboard, Action Items, Settings links), top bar with user avatar/name and sign out button, main content area. Mobile responsive with collapsible sidebar",
+    "Create app/dashboard/regulations/[id]/page.tsx - detail page for a regulation showing: full title, published date, severity badge, affected regions, full description, 'What Changed' section, 'Action Items' section listing developer tasks with checkboxes to mark status, deadline if applicable. Back button to dashboard",
+    "Create app/api/regulations/route.ts - GET endpoint that returns regulations filtered by the current user's profile (matching techStack and regions), supports query params for severity, category, search, dateFrom, dateTo",
+    "Create app/api/regulations/[id]/route.ts - GET endpoint returning single regulation with its action items and the current user's completion status for each",
+    "Create app/dashboard/actions/page.tsx - action items page showing all user's action items grouped by status (Todo, In Progress, Completed). Each item shows title, associated regulation, priority, and status toggle buttons. Shows overall compliance progress bar at top",
+    "Create app/api/actions/route.ts - GET endpoint returning all action items for the current user with their statuses. POST endpoint to update an action item's status (TODO, IN_PROGRESS, COMPLETED)",
+    "Create app/api/actions/[id]/route.ts - PATCH endpoint to update a specific action item's status for the current user",
+    "Create app/dashboard/settings/page.tsx - settings page with: alert frequency radio buttons (Immediate, Daily digest, Weekly digest), severity level checkboxes (which levels trigger alerts), save button that calls PATCH /api/settings. Show success toast on save",
+    "Create app/api/settings/route.ts - GET endpoint returning current user settings, PATCH endpoint updating alertFrequency and severityLevels",
+    "Create middleware.ts in root - Next.js middleware that protects /dashboard/* routes, redirecting to /signin if no session. Also redirects authenticated users from /signin and /signup to /dashboard"
+  ],
+  "acceptance_criteria": [
+    "Onboarding flow works as 3-step wizard with progress bar",
+    "Dashboard shows regulation cards filtered by user profile",
+    "Filter bar allows filtering by severity, category, date, and search text",
+    "Regulation detail page shows full info with action items",
+    "Action items can be toggled between TODO/IN_PROGRESS/COMPLETED statuses",
+    "Compliance progress percentage is calculated from action item completion",
+    "Settings page allows configuring alert frequency and severity preferences",
+    "All dashboard routes are protected by middleware",
+    "All API routes validate authentication and return proper error responses"
+  ],
+  "verification": [
+    "npx tsc --noEmit passes without type errors",
+    "npm run build succeeds"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}
