@@ -2,7 +2,7 @@
   "id": "FEAT-002",
   "type": "feat",
   "description": "Build the complete landing page with hero section, features section, pricing section (Free/Pro/Enterprise tiers), and footer. Also build the authentication pages (sign in and sign up) with NextAuth integration, and the user registration API endpoint.",
-  "status": "pending",
+  "status": "in_progress",
   "steps": [
     "Create components/ui/Button.tsx - reusable button component with variants (primary, secondary, outline, ghost) and sizes (sm, md, lg), fully typed with TypeScript",
     "Create components/ui/Card.tsx - reusable card component with header, body, footer slots",
