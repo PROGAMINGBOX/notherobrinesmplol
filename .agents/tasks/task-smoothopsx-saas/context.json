@@ -1,0 +1,28 @@
+{
+  "project_type": "Next.js 14 App Router SaaS application with TypeScript",
+  "language": "TypeScript",
+  "build_system": "npm/pnpm with Next.js built-in bundler",
+  "test_framework": "TypeScript compilation check (tsc --noEmit), ESLint, Next.js build",
+  "build_command": "npm run build",
+  "test_command": "npx tsc --noEmit",
+  "verification_instructions": "1. Run npm install, 2. Run npx tsc --noEmit to check types, 3. Run npm run build to verify production build succeeds, 4. Run npm run dev to verify dev server starts",
+  "snapshot_or_generated_files": null,
+  "setup_instructions": "1. Remove all existing files except .git, 2. Create Next.js 14 app with TypeScript and Tailwind CSS, 3. Install all dependencies",
+  "environment_constraints": "Node.js v22.22.3, npm v11.4.2, pnpm v10.28.1 available. No database server available for runtime testing - Prisma schema validation only. No Docker daemon assumed available.",
+  "contribution_requirements": "Fresh greenfield project - no existing contribution guidelines to follow",
+  "key_patterns": "Next.js 14 App Router patterns: app/ directory, layout.tsx, page.tsx, route.ts for API routes, server components by default, 'use client' directive for client components. Prisma for ORM. NextAuth.js v4 for auth. Tailwind CSS for styling.",
+  "relevant_files": [
+    "app/layout.tsx",
+    "app/page.tsx",
+    "app/(auth)/signin/page.tsx",
+    "app/(auth)/signup/page.tsx",
+    "app/dashboard/page.tsx",
+    "app/onboarding/page.tsx",
+    "app/api/auth/[...nextauth]/route.ts",
+    "prisma/schema.prisma",
+    "prisma/seed.ts",
+    "tailwind.config.ts",
+    "next.config.js"
+  ],
+  "directory_structure": "app/ - Next.js App Router pages and API routes, components/ - Reusable React components, lib/ - Utility functions and shared code, prisma/ - Database schema and migrations, public/ - Static assets, types/ - TypeScript type definitions"
+}

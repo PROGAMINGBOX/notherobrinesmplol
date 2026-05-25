@@ -1,0 +1,7 @@
+{
+  "task_id": "task-smoothopsx-saas",
+  "task_description": "Build SmoothOpsX - a complete Regulatory/Compliance Changelog SaaS web application using Next.js 14, TypeScript, Tailwind CSS, Prisma, and NextAuth.js. The app auto-monitors legal and regulatory changes relevant to a user's tech stack and business type, providing plain-English action items for developers.",
+  "status": "in_progress",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003", "FEAT-004"],
+  "blocked_reason": null
+}

@@ -1,0 +1,36 @@
+{
+  "id": "FEAT-001",
+  "type": "chore",
+  "description": "Bootstrap Next.js 14 project with TypeScript, Tailwind CSS, Prisma, and NextAuth.js. Remove all existing files and create a fresh project structure with all dependencies configured.",
+  "status": "in_progress",
+  "steps": [
+    "Remove all existing files in /projects/sandbox/notherobrinesmplol/ (index.js, package.json, package-lock.json, Procfile, config.json) but preserve .git/ and .agents/ directories",
+    "Create a new Next.js 14 project manually (no create-next-app to avoid interactive prompts) with the following files: package.json with all dependencies (next, react, react-dom, typescript, tailwindcss, postcss, autoprefixer, prisma, @prisma/client, next-auth, @next-auth/prisma-adapter, bcryptjs, @types/bcryptjs, zod), tsconfig.json, next.config.js, tailwind.config.ts, postcss.config.js",
+    "Create the app/ directory structure: app/layout.tsx (root layout with dark mode support, Inter font, metadata for SmoothOpsX), app/globals.css (Tailwind directives plus custom CSS variables for theming)",
+    "Create prisma/schema.prisma with models for: User (id, name, email, password, emailVerified, image, businessType, techStack as String[], regions as String[], alertFrequency, severityLevels as String[], createdAt, updatedAt), Account (NextAuth), Session (NextAuth), VerificationToken (NextAuth), Regulation (id, name, shortName, category, severity, region, affectedArea, summary, fullDescription, whatChanged, deadline, publishedAt, createdAt, updatedAt), ActionItem (id, regulationId, title, description, priority, techStackRelevance as String[], createdAt), UserActionItem (id, userId, actionItemId, status enum TODO/IN_PROGRESS/COMPLETED, completedAt, createdAt, updatedAt)",
+    "Create lib/prisma.ts with singleton PrismaClient pattern for Next.js",
+    "Create lib/auth.ts with NextAuth configuration using CredentialsProvider (email/password) with Prisma adapter, JWT strategy, custom pages for signin/signup",
+    "Create app/api/auth/[...nextauth]/route.ts that exports the NextAuth handler",
+    "Create .env.example with DATABASE_URL, NEXTAUTH_SECRET, NEXTAUTH_URL placeholders",
+    "Create .gitignore for Next.js project (node_modules, .next, .env, .env.local)",
+    "Run npm install to install all dependencies",
+    "Run npx prisma generate to generate Prisma client (will work without a real DB connection)",
+    "Verify the project compiles with npx tsc --noEmit"
+  ],
+  "acceptance_criteria": [
+    "All old project files are removed",
+    "package.json contains all required dependencies for Next.js 14, Tailwind, Prisma, NextAuth",
+    "TypeScript compilation passes with npx tsc --noEmit",
+    "prisma/schema.prisma contains all required models with proper relations",
+    "Tailwind CSS is configured with dark mode support",
+    "NextAuth is configured with credentials provider"
+  ],
+  "verification": [
+    "npm install completes without errors",
+    "npx prisma generate succeeds",
+    "npx tsc --noEmit passes without type errors",
+    "npm run build succeeds (Next.js production build)"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

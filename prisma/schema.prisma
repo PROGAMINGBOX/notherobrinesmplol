@@ -1,0 +1,129 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Severity {
+  CRITICAL
+  WARNING
+  INFO
+}
+
+enum Priority {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum ActionStatus {
+  TODO
+  IN_PROGRESS
+  COMPLETED
+}
+
+model User {
+  id              String    @id @default(cuid())
+  name            String?
+  email           String    @unique
+  emailVerified   DateTime?
+  image           String?
+  password        String?
+  businessType    String?
+  techStack       String[]
+  regions         String[]
+  alertFrequency  String    @default("weekly")
+  severityLevels  String[]  @default(["CRITICAL", "WARNING"])
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  accounts        Account[]
+  sessions        Session[]
+  userActionItems UserActionItem[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Regulation {
+  id              String    @id @default(cuid())
+  name            String
+  shortName       String
+  category        String
+  severity        Severity
+  region          String
+  affectedArea    String
+  summary         String
+  fullDescription String
+  whatChanged     String
+  deadline        DateTime?
+  publishedAt     DateTime
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  actionItems ActionItem[]
+}
+
+model ActionItem {
+  id                 String   @id @default(cuid())
+  regulationId       String
+  title              String
+  description        String
+  priority           Priority
+  techStackRelevance String[]
+  createdAt          DateTime @default(now())
+
+  regulation      Regulation       @relation(fields: [regulationId], references: [id], onDelete: Cascade)
+  userActionItems UserActionItem[]
+}
+
+model UserActionItem {
+  id           String       @id @default(cuid())
+  userId       String
+  actionItemId String
+  status       ActionStatus @default(TODO)
+  completedAt  DateTime?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  actionItem ActionItem @relation(fields: [actionItemId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, actionItemId])
+}
