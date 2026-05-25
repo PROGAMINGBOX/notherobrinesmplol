@@ -2,7 +2,7 @@
   "id": "FEAT-003",
   "type": "feat",
   "description": "Build the onboarding flow (3-step wizard), the compliance feed dashboard with filtering/search, the detail view for regulations, the action items tracking system, and the email alert preferences settings page.",
-  "status": "pending",
+  "status": "in_progress",
   "steps": [
     "Create app/onboarding/page.tsx - multi-step onboarding wizard (client component) with 3 steps: Step 1 (Business Type: SaaS, E-commerce, Mobile App, Fintech, Healthcare, EdTech, Marketplace, Other - selectable cards), Step 2 (Tech Stack: iOS/App Store, Android/Play Store, Web App, AWS, GCP, Azure, Stripe/Payments, etc. - multi-select checkboxes/chips), Step 3 (Regions: EU/GDPR, US-California/CCPA, US-Federal, UK, Canada, Australia, Brazil, India - multi-select with flag icons). Include a progress bar, back/next navigation, and submit that calls POST /api/onboarding",
     "Create app/api/onboarding/route.ts - POST endpoint that updates the current user's businessType, techStack, and regions fields in the database",
