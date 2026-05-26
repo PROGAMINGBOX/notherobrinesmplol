@@ -51,6 +51,7 @@ export default function ActionsPage() {
     itemId: string,
     newStatus: "TODO" | "IN_PROGRESS" | "COMPLETED"
   ) => {
+    setError(null);
     try {
       const res = await fetch(`/api/actions/${itemId}`, {
         method: "PATCH",

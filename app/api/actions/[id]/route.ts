@@ -35,7 +35,7 @@ export async function PATCH(
     select: { regions: true },
   });
 
-  if (!user || (user.regions.length > 0 && !user.regions.includes(actionItem.regulation.region))) {
+  if (!user || user.regions.length === 0 || !user.regions.includes(actionItem.regulation.region)) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
