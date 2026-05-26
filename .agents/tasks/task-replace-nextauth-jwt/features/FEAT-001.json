@@ -2,7 +2,7 @@
   "id": "FEAT-001",
   "type": "feat",
   "description": "Replace NextAuth.js with custom JWT-based authentication system. Create JWT utility library, new API routes (signin, signup, signout, me), rewrite middleware with jose, update all client components and API routes to use the new auth system.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "Step 1: Create `lib/jwt.ts` - JWT helper functions using the `jose` library. Functions needed: (a) `signJWT(payload: {userId, email, name})` - creates a signed JWT using process.env.NEXTAUTH_SECRET, (b) `verifyJWT(token: string)` - verifies and returns the decoded payload, (c) `getAuthTokenCookie()` - returns the cookie options object {name: 'auth-token', httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', path: '/', maxAge: 60*60*24*7}.",
     "Step 2: Create `app/api/auth/signin/route.ts` - POST handler that: accepts {email, password}, looks up user in prisma by email, verifies password with bcryptjs, creates JWT with signJWT({userId: user.id, email: user.email, name: user.name}), sets httpOnly cookie named 'auth-token' on response, returns {success: true, user: {id, email, name}}. Return 401 for invalid credentials.",
@@ -33,5 +33,5 @@
     "Run `grep -r 'next-auth' /projects/sandbox/notherobrinesmplol/app /projects/sandbox/notherobrinesmplol/lib /projects/sandbox/notherobrinesmplol/middleware.ts` and confirm no results (no remaining next-auth imports in source code)"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "getAuthSession was moved to a separate lib/auth-session.ts file because lib/utils.ts is imported by client components (for cn/formatRelativeDate) and cannot contain next/headers imports. All API routes updated to import from lib/auth-session instead of lib/utils. Build succeeds cleanly with no TypeScript errors."
 }
