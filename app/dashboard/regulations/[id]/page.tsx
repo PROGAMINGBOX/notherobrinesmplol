@@ -60,6 +60,7 @@ export default function RegulationDetailPage() {
   const params = useParams();
   const [regulation, setRegulation] = useState<Regulation | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchRegulation() {
@@ -68,9 +69,11 @@ export default function RegulationDetailPage() {
         if (res.ok) {
           const data = await res.json();
           setRegulation(data);
+        } else {
+          setError("Failed to load regulation details.");
         }
       } catch {
-        // fetch failed
+        setError("Failed to load regulation details. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -93,9 +96,11 @@ export default function RegulationDetailPage() {
             item.id === actionItemId ? { ...item, status: newStatus } : item
           ),
         });
+      } else if (!res.ok) {
+        setError("Failed to update action item status.");
       }
     } catch {
-      // update failed
+      setError("Failed to update action item status.");
     }
   };
 
@@ -111,7 +116,9 @@ export default function RegulationDetailPage() {
   if (!regulation) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-600 dark:text-gray-400">Regulation not found.</p>
+        <p className="text-gray-600 dark:text-gray-400">
+          {error || "Regulation not found."}
+        </p>
         <Button href="/dashboard" variant="outline" className="mt-4">
           Back to Dashboard
         </Button>
@@ -134,6 +141,12 @@ export default function RegulationDetailPage() {
         </svg>
         Back to Dashboard
       </Link>
+
+      {error && (
+        <div className="p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-sm">
+          {error}
+        </div>
+      )}
 
       {/* Header */}
       <div>

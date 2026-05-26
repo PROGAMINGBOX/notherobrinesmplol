@@ -19,13 +19,24 @@ export async function PATCH(
     return NextResponse.json({ error: "Invalid status" }, { status: 400 });
   }
 
-  // Verify action item exists
+  // Verify action item exists and get its regulation's region
   const actionItem = await prisma.actionItem.findUnique({
     where: { id: params.id },
+    include: { regulation: { select: { region: true } } },
   });
 
   if (!actionItem) {
     return NextResponse.json({ error: "Action item not found" }, { status: 404 });
+  }
+
+  // Verify the user has access to this action item's regulation region
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { regions: true },
+  });
+
+  if (!user || (user.regions.length > 0 && !user.regions.includes(actionItem.regulation.region))) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const completedAt = status === "COMPLETED" ? new Date() : null;

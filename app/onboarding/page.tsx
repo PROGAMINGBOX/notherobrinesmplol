@@ -31,15 +31,15 @@ const TECH_STACK_OPTIONS = [
 ];
 
 const REGION_OPTIONS = [
-  "EU - GDPR",
-  "US - California/CCPA",
-  "US - Federal",
-  "United Kingdom",
-  "Canada",
-  "Australia",
-  "Brazil",
-  "India",
-  "Singapore",
+  { value: "EU", label: "EU (GDPR)" },
+  { value: "US-California", label: "US - California (CCPA/CPRA)" },
+  { value: "US-Federal", label: "US - Federal" },
+  { value: "UK", label: "United Kingdom" },
+  { value: "Canada", label: "Canada" },
+  { value: "Australia", label: "Australia" },
+  { value: "Brazil", label: "Brazil" },
+  { value: "Global", label: "Global" },
+  { value: "Singapore", label: "Singapore" },
 ];
 
 export default function OnboardingPage() {
@@ -62,9 +62,9 @@ export default function OnboardingPage() {
     );
   };
 
-  const toggleRegion = (item: string) => {
+  const toggleRegion = (value: string) => {
     setRegions((prev) =>
-      prev.includes(item) ? prev.filter((r) => r !== item) : [...prev, item]
+      prev.includes(value) ? prev.filter((r) => r !== value) : [...prev, value]
     );
   };
 
@@ -171,15 +171,15 @@ export default function OnboardingPage() {
             <div className="space-y-2">
               {REGION_OPTIONS.map((region) => (
                 <button
-                  key={region}
-                  onClick={() => toggleRegion(region)}
+                  key={region.value}
+                  onClick={() => toggleRegion(region.value)}
                   className={`w-full text-left px-4 py-3 rounded-lg border-2 text-sm font-medium transition-all ${
-                    regions.includes(region)
+                    regions.includes(region.value)
                       ? "border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300"
                       : "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600"
                   }`}
                 >
-                  {region}
+                  {region.label}
                 </button>
               ))}
             </div>
