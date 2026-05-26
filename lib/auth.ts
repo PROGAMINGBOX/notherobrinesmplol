@@ -13,8 +13,8 @@ if (
   process.env.NODE_ENV === "production" &&
   !process.env.NEXT_PHASE
 ) {
-  console.warn(
-    "\x1b[31m[SECURITY WARNING]\x1b[0m NEXTAUTH_SECRET is still set to the placeholder value. " +
+  throw new Error(
+    "[SECURITY] NEXTAUTH_SECRET is still set to the placeholder value. " +
       "Please set a strong, unique secret for production. " +
       "Generate one with: openssl rand -base64 32"
   );
