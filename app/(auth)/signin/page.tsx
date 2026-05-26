@@ -6,9 +6,11 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Card } from "@/components/ui/Card";
+import { useAuth } from "@/app/providers";
 
 export default function SignInPage() {
   const router = useRouter();
+  const { setUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -27,6 +29,8 @@ export default function SignInPage() {
       });
 
       if (res.ok) {
+        const data = await res.json();
+        setUser(data.user);
         router.push("/dashboard");
       } else {
         const data = await res.json();

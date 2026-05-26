@@ -1,5 +1,15 @@
 import { SignJWT, jwtVerify } from "jose";
 
+if (
+  process.env.NEXTAUTH_SECRET === "dummy-secret-for-build" &&
+  process.env.NODE_ENV === "production" &&
+  !process.env.NEXT_PHASE
+) {
+  throw new Error(
+    "[SECURITY] NEXTAUTH_SECRET is still set to the placeholder value. Set a real secret before running in production."
+  );
+}
+
 const secret = new TextEncoder().encode(process.env.NEXTAUTH_SECRET);
 
 export interface JWTPayload {

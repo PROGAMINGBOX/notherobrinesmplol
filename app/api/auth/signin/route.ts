@@ -6,14 +6,16 @@ import { signJWT, getAuthTokenCookieOptions } from "@/lib/jwt";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { email, password } = body;
+    const { email: rawEmail, password } = body;
 
-    if (!email || !password) {
+    if (!rawEmail || !password) {
       return NextResponse.json(
         { error: "Email and password are required" },
         { status: 400 }
       );
     }
+
+    const email = rawEmail.toLowerCase();
 
     const user = await prisma.user.findUnique({
       where: { email },

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Card } from "@/components/ui/Card";
+import { useAuth } from "@/app/providers";
 
 interface FormErrors {
   name?: string;
@@ -16,6 +17,7 @@ interface FormErrors {
 
 export default function SignUpPage() {
   const router = useRouter();
+  const { setUser } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -67,6 +69,8 @@ export default function SignUpPage() {
       });
 
       if (res.ok) {
+        const data = await res.json();
+        setUser(data.user);
         router.push("/dashboard");
       } else {
         const data = await res.json();
