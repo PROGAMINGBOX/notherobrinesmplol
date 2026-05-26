@@ -60,14 +60,14 @@ export default function SignUpPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/auth/register", {
+      const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
       });
 
       if (res.ok) {
-        router.push("/signin");
+        router.push("/dashboard");
       } else {
         const data = await res.json();
         if (res.status === 409) {

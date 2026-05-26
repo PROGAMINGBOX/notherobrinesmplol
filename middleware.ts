@@ -1,37 +1,39 @@
-import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { jwtVerify } from "jose";
 
-export default withAuth(
-  function middleware(req) {
-    const { pathname } = req.nextUrl;
-    const token = req.nextauth.token;
+const secret = new TextEncoder().encode(process.env.NEXTAUTH_SECRET);
 
-    // Redirect authenticated users away from auth pages
-    if (token && (pathname === "/signin" || pathname === "/signup")) {
-      return NextResponse.redirect(new URL("/dashboard", req.url));
-    }
-
-    return NextResponse.next();
-  },
-  {
-    callbacks: {
-      authorized({ token, req }) {
-        const { pathname } = req.nextUrl;
-
-        // Allow access to auth pages without token
-        if (pathname === "/signin" || pathname === "/signup") {
-          return true;
-        }
-
-        // Require token for protected routes
-        return !!token;
-      },
-    },
-    pages: {
-      signIn: "/signin",
-    },
+async function verifyToken(token: string): Promise<boolean> {
+  try {
+    await jwtVerify(token, secret);
+    return true;
+  } catch {
+    return false;
   }
-);
+}
+
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  const token = request.cookies.get("auth-token")?.value;
+
+  const isAuthenticated = token ? await verifyToken(token) : false;
+
+  // Auth pages: redirect authenticated users to dashboard
+  if (pathname === "/signin" || pathname === "/signup") {
+    if (isAuthenticated) {
+      return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
+    return NextResponse.next();
+  }
+
+  // Protected routes: redirect unauthenticated users to signin
+  if (!isAuthenticated) {
+    return NextResponse.redirect(new URL("/signin", request.url));
+  }
+
+  return NextResponse.next();
+}
 
 export const config = {
   matcher: ["/dashboard/:path*", "/onboarding/:path*", "/signin", "/signup"],

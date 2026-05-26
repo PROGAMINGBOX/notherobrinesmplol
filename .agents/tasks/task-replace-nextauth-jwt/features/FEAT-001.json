@@ -1,0 +1,37 @@
+{
+  "id": "FEAT-001",
+  "type": "feat",
+  "description": "Replace NextAuth.js with custom JWT-based authentication system. Create JWT utility library, new API routes (signin, signup, signout, me), rewrite middleware with jose, update all client components and API routes to use the new auth system.",
+  "status": "in_progress",
+  "steps": [
+    "Step 1: Create `lib/jwt.ts` - JWT helper functions using the `jose` library. Functions needed: (a) `signJWT(payload: {userId, email, name})` - creates a signed JWT using process.env.NEXTAUTH_SECRET, (b) `verifyJWT(token: string)` - verifies and returns the decoded payload, (c) `getAuthTokenCookie()` - returns the cookie options object {name: 'auth-token', httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', path: '/', maxAge: 60*60*24*7}.",
+    "Step 2: Create `app/api/auth/signin/route.ts` - POST handler that: accepts {email, password}, looks up user in prisma by email, verifies password with bcryptjs, creates JWT with signJWT({userId: user.id, email: user.email, name: user.name}), sets httpOnly cookie named 'auth-token' on response, returns {success: true, user: {id, email, name}}. Return 401 for invalid credentials.",
+    "Step 3: Create `app/api/auth/signup/route.ts` - POST handler that: accepts {name, email, password}, validates with zod (same schema as current register/route.ts), checks for existing user (409 if exists), hashes password with bcryptjs, creates user in prisma, creates JWT and sets auth-token cookie, returns {success: true, user: {id, email, name}} with status 201.",
+    "Step 4: Create `app/api/auth/signout/route.ts` - POST handler that clears the 'auth-token' cookie (set maxAge=0 or use cookies().delete()) and returns {success: true}.",
+    "Step 5: Create `app/api/auth/me/route.ts` - GET handler that reads 'auth-token' cookie from request, verifies JWT with verifyJWT(), looks up user in prisma to confirm they still exist, returns {user: {id, email, name}} or 401 if no valid token.",
+    "Step 6: Rewrite `lib/utils.ts` - Replace the `getAuthSession()` function. Instead of calling getServerSession(authOptions), it should: import cookies from 'next/headers', read the 'auth-token' cookie, verify it with verifyJWT from lib/jwt.ts, and return an object shaped like {user: {id: payload.userId, email: payload.email, name: payload.name}} or null. This maintains the same interface that all API routes expect (session.user.id). Remove the import of getServerSession and authOptions.",
+    "Step 7: Rewrite `middleware.ts` - Remove all next-auth imports. Import jwtVerify from 'jose'. Read the 'auth-token' cookie from request.cookies. For protected routes (/dashboard/*, /onboarding/*), verify the JWT; if invalid/missing, redirect to /signin. For auth routes (/signin, /signup), if JWT is valid, redirect to /dashboard. Keep the same matcher config.",
+    "Step 8: Rewrite `app/providers.tsx` - Remove SessionProvider from next-auth/react. Create a custom AuthProvider with React context that: exposes {user, loading, signOut} via useAuth() hook, on mount calls GET /api/auth/me to populate user state, signOut calls POST /api/auth/signout then redirects to /signin. Export the AuthProvider as default Providers wrapper and export a useAuth hook.",
+    "Step 9: Modify `app/(auth)/signin/page.tsx` - Remove `import { signIn } from 'next-auth/react'`. In handleSubmit, replace the signIn('credentials', ...) call with a fetch to POST /api/auth/signin with {email, password}. On success (res.ok), call router.push('/dashboard'). On failure, show the error message from the response.",
+    "Step 10: Modify `app/(auth)/signup/page.tsx` - Change the fetch URL from '/api/auth/register' to '/api/auth/signup'. On success, redirect to '/dashboard' instead of '/signin' (since signup now auto-logs in with cookie).",
+    "Step 11: Modify `app/dashboard/layout.tsx` - Remove `import { signOut } from 'next-auth/react'`. Import useAuth from '@/app/providers' (or wherever the hook is exported). Replace the signOut({callbackUrl: '/signin'}) call with: call the signOut function from useAuth() context.",
+    "Step 12: Delete `lib/auth.ts` (the NextAuth config file) and delete `app/api/auth/[...nextauth]/route.ts` (the NextAuth route handler). Also delete `app/api/auth/register/route.ts` since signup replaces it.",
+    "Step 13: Update `package.json` - Add 'jose' to dependencies. Optionally remove 'next-auth' and '@next-auth/prisma-adapter' from dependencies (since nothing uses them anymore)."
+  ],
+  "acceptance_criteria": [
+    "Running `npm run build` succeeds with no TypeScript errors",
+    "No imports from 'next-auth', 'next-auth/react', 'next-auth/middleware', or '@next-auth/prisma-adapter' exist anywhere in the codebase (except possibly package.json if kept for safety)",
+    "lib/jwt.ts exists and exports signJWT, verifyJWT functions using jose",
+    "middleware.ts uses jose directly to verify auth-token cookie without any next-auth dependency",
+    "All API routes (onboarding, settings, stats, actions, regulations) still use getAuthSession() from lib/utils.ts with the same interface (session.user.id)",
+    "The auth-token cookie is set as httpOnly, secure (in production), sameSite=lax",
+    "app/providers.tsx exports a useAuth hook and AuthProvider without next-auth dependency",
+    "signin and signup pages use fetch to custom API routes instead of next-auth signIn function"
+  ],
+  "verification": [
+    "Run `npm run build` in /projects/sandbox/notherobrinesmplol and confirm it completes successfully with exit code 0",
+    "Run `grep -r 'next-auth' /projects/sandbox/notherobrinesmplol/app /projects/sandbox/notherobrinesmplol/lib /projects/sandbox/notherobrinesmplol/middleware.ts` and confirm no results (no remaining next-auth imports in source code)"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

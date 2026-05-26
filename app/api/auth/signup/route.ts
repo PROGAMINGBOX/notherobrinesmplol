@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import { signJWT, getAuthTokenCookieOptions } from "@/lib/jwt";
 
-const registerSchema = z.object({
+const signupSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address"),
   password: z.string().min(8, "Password must be at least 8 characters"),
@@ -12,7 +13,7 @@ const registerSchema = z.object({
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const result = registerSchema.safeParse(body);
+    const result = signupSchema.safeParse(body);
 
     if (!result.success) {
       return NextResponse.json(
@@ -36,7 +37,7 @@ export async function POST(request: Request) {
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    await prisma.user.create({
+    const user = await prisma.user.create({
       data: {
         name,
         email,
@@ -44,9 +45,29 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json({ success: true }, { status: 201 });
+    const token = await signJWT({
+      userId: user.id,
+      email: user.email,
+      name: user.name || "",
+    });
+
+    const cookieOptions = getAuthTokenCookieOptions();
+    const response = NextResponse.json(
+      { success: true, user: { id: user.id, email: user.email, name: user.name } },
+      { status: 201 }
+    );
+
+    response.cookies.set(cookieOptions.name, token, {
+      httpOnly: cookieOptions.httpOnly,
+      secure: cookieOptions.secure,
+      sameSite: cookieOptions.sameSite,
+      path: cookieOptions.path,
+      maxAge: cookieOptions.maxAge,
+    });
+
+    return response;
   } catch (error) {
-    console.error("Registration error:", error);
+    console.error("Sign up error:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

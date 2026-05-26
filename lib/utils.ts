@@ -1,6 +1,3 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-
 export function cn(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(" ");
 }
@@ -28,8 +25,4 @@ export function formatRelativeDate(date: Date | string): string {
     return `${diffMinutes} minute${diffMinutes > 1 ? "s" : ""} ago`;
   }
   return "just now";
-}
-
-export async function getAuthSession() {
-  return getServerSession(authOptions);
 }
