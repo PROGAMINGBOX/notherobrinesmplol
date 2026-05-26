@@ -4,6 +4,22 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 
+// SECURITY: The .env file contains a placeholder NEXTAUTH_SECRET ("dummy-secret-for-build").
+// In production, NEXTAUTH_SECRET MUST be changed to a strong, unique value.
+// If deployed with the placeholder, JWT sessions are trivially forgeable.
+// Generate a proper secret with: openssl rand -base64 32
+if (
+  process.env.NEXTAUTH_SECRET === "dummy-secret-for-build" &&
+  process.env.NODE_ENV === "production" &&
+  !process.env.NEXT_PHASE
+) {
+  console.warn(
+    "\x1b[31m[SECURITY WARNING]\x1b[0m NEXTAUTH_SECRET is still set to the placeholder value. " +
+      "Please set a strong, unique secret for production. " +
+      "Generate one with: openssl rand -base64 32"
+  );
+}
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   session: {

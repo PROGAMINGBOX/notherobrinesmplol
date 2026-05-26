@@ -21,6 +21,7 @@ export default function SettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchSettings() {
@@ -30,9 +31,11 @@ export default function SettingsPage() {
           const data = await res.json();
           setAlertFrequency(data.alertFrequency);
           setSeverityLevels(data.severityLevels);
+        } else {
+          setError("Failed to load settings. Please try again.");
         }
       } catch {
-        // fetch failed
+        setError("Failed to load settings. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -49,6 +52,7 @@ export default function SettingsPage() {
   const handleSave = async () => {
     setSaving(true);
     setSuccess(false);
+    setError(null);
     try {
       const res = await fetch("/api/settings", {
         method: "PATCH",
@@ -58,9 +62,11 @@ export default function SettingsPage() {
       if (res.ok) {
         setSuccess(true);
         setTimeout(() => setSuccess(false), 3000);
+      } else {
+        setError("Failed to save settings. Please try again.");
       }
     } catch {
-      // save failed
+      setError("Failed to save settings. Please try again.");
     } finally {
       setSaving(false);
     }
@@ -78,6 +84,12 @@ export default function SettingsPage() {
   return (
     <div className="max-w-2xl space-y-8">
       <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Settings</h1>
+
+      {error && (
+        <div className="p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-sm">
+          {error}
+        </div>
+      )}
 
       {/* Alert Frequency */}
       <section>

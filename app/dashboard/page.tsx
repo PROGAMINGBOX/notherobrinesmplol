@@ -42,6 +42,7 @@ export default function DashboardPage() {
   });
   const [loading, setLoading] = useState(true);
   const [needsOnboarding, setNeedsOnboarding] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchStats = async () => {
     try {
@@ -51,12 +52,13 @@ export default function DashboardPage() {
         setStats(data);
       }
     } catch {
-      // stats fetch failed silently
+      setError("Failed to load dashboard statistics. Please try again.");
     }
   };
 
   const fetchRegulations = useCallback(async (filters?: Filters) => {
     setLoading(true);
+    setError(null);
     try {
       const params = new URLSearchParams();
       if (filters?.search) params.set("search", filters.search);
@@ -71,9 +73,11 @@ export default function DashboardPage() {
         if (data.needsOnboarding) {
           setNeedsOnboarding(true);
         }
+      } else {
+        setError("Failed to load regulations. Please try again.");
       }
     } catch {
-      // fetch failed silently
+      setError("Failed to load regulations. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -116,6 +120,12 @@ export default function DashboardPage() {
       <ComplianceStats {...stats} />
 
       <FilterBar onFilterChange={handleFilterChange} />
+
+      {error && (
+        <div className="p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-sm">
+          {error}
+        </div>
+      )}
 
       {loading ? (
         <div className="space-y-4">

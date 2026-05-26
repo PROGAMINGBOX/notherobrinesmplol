@@ -26,6 +26,7 @@ const priorityColor: Record<string, "red" | "amber" | "blue"> = {
 export default function ActionsPage() {
   const [items, setItems] = useState<ActionItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchActions() {
@@ -34,9 +35,11 @@ export default function ActionsPage() {
         if (res.ok) {
           const data = await res.json();
           setItems(data.items || []);
+        } else {
+          setError("Failed to load action items. Please try again.");
         }
       } catch {
-        // fetch failed
+        setError("Failed to load action items. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -60,9 +63,11 @@ export default function ActionsPage() {
             item.id === itemId ? { ...item, status: newStatus } : item
           )
         );
+      } else {
+        setError("Failed to update action item status.");
       }
     } catch {
-      // update failed
+      setError("Failed to update action item status.");
     }
   };
 
@@ -89,6 +94,12 @@ export default function ActionsPage() {
       <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
         Action Items
       </h1>
+
+      {error && (
+        <div className="p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-sm">
+          {error}
+        </div>
+      )}
 
       {/* Progress bar */}
       <div>
