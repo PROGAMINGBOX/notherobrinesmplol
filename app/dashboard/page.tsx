@@ -95,15 +95,15 @@ export default function DashboardPage() {
   if (needsOnboarding) {
     return (
       <div className="flex flex-col items-center justify-center py-16">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+        <h2 className="text-xl font-semibold text-white mb-2">
           Complete Your Profile
         </h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-6 text-center max-w-md">
+        <p className="text-gray-400 mb-6 text-center max-w-md">
           Set up your compliance profile to start tracking regulations relevant to your business.
         </p>
         <Link
           href="/onboarding"
-          className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium text-sm"
+          className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg hover:from-emerald-600 hover:to-teal-700 transition-all font-medium text-sm"
         >
           Start Onboarding
         </Link>
@@ -113,7 +113,7 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+      <h1 className="text-2xl font-bold text-white">
         Compliance Dashboard
       </h1>
 
@@ -122,7 +122,7 @@ export default function DashboardPage() {
       <FilterBar onFilterChange={handleFilterChange} />
 
       {error && (
-        <div className="p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-sm">
+        <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
           {error}
         </div>
       )}
@@ -132,13 +132,13 @@ export default function DashboardPage() {
           {[1, 2, 3].map((i) => (
             <div
               key={i}
-              className="h-32 rounded-xl bg-gray-100 dark:bg-gray-800 animate-pulse"
+              className="h-32 rounded-2xl bg-white/5 animate-pulse"
             />
           ))}
         </div>
       ) : regulations.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-400">
             No regulations found matching your filters.
           </p>
         </div>

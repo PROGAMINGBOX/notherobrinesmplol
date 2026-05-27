@@ -22,25 +22,31 @@ const severityColor: Record<string, "red" | "amber" | "blue"> = {
   INFO: "blue",
 };
 
+const severityBorder: Record<string, string> = {
+  CRITICAL: "border-l-red-500",
+  WARNING: "border-l-amber-500",
+  INFO: "border-l-emerald-500",
+};
+
 export function RegulationCard({ regulation }: RegulationCardProps) {
   return (
     <Link href={`/dashboard/regulations/${regulation.id}`}>
-      <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 transition-all cursor-pointer">
+      <div className={`rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-4 border-l-2 ${severityBorder[regulation.severity]} hover:border-emerald-500/30 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-200 cursor-pointer`}>
         <div className="flex items-start justify-between gap-2 mb-2">
-          <h3 className="text-sm font-semibold text-gray-900 dark:text-white line-clamp-1">
+          <h3 className="text-sm font-semibold text-white line-clamp-1">
             {regulation.name}
           </h3>
           <Badge color={severityColor[regulation.severity]} size="sm">
             {regulation.severity}
           </Badge>
         </div>
-        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+        <p className="text-sm text-gray-400 line-clamp-2 mb-3">
           {regulation.summary}
         </p>
         <div className="flex items-center gap-2 flex-wrap">
           <Badge color="gray" size="sm">{regulation.affectedArea}</Badge>
           <Badge color="gray" size="sm">{regulation.region}</Badge>
-          <span className="ml-auto text-xs text-gray-500 dark:text-gray-500">
+          <span className="ml-auto text-xs text-gray-500">
             {formatRelativeDate(regulation.publishedAt)}
           </span>
         </div>
