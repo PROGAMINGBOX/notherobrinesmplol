@@ -66,10 +66,13 @@ export function Features() {
     <section id="features" className="py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white">
-            Everything you need to stay compliant
+          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            Everything you need to{" "}
+            <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
+              stay compliant
+            </span>
           </h2>
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">
+          <p className="mt-4 text-lg text-gray-400">
             Powerful tools to monitor, understand, and act on regulatory changes
             that affect your tech stack.
           </p>
@@ -79,15 +82,15 @@ export function Features() {
           {features.map((feature) => (
             <div
               key={feature.title}
-              className="rounded-xl border border-gray-200 bg-white p-6 transition-shadow hover:shadow-md dark:border-gray-800 dark:bg-gray-900"
+              className="group tilt-card rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 transition-all duration-300 hover:border-emerald-500/30 hover:scale-[1.02] hover:shadow-lg hover:shadow-emerald-500/10"
             >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-100 text-primary-600 dark:bg-primary-900/30 dark:text-primary-400">
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400">
                 {feature.icon}
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-lg font-semibold text-white">
                 {feature.title}
               </h3>
-              <p className="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-400">
+              <p className="mt-2 text-sm leading-6 text-gray-400">
                 {feature.description}
               </p>
             </div>
