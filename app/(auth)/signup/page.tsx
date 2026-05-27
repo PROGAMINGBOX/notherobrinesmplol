@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/providers";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Card } from "@/components/ui/Card";
@@ -16,6 +17,7 @@ interface FormErrors {
 
 export default function SignUpPage() {
   const router = useRouter();
+  const { setUser } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -60,16 +62,18 @@ export default function SignUpPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/auth/register", {
+      const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
       });
 
-      if (res.ok) {
-        router.push("/signin");
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setUser(data.user);
+        router.push("/onboarding");
       } else {
-        const data = await res.json();
         if (res.status === 409) {
           setServerError("An account with this email already exists.");
         } else if (data.error) {
