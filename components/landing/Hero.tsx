@@ -3,22 +3,31 @@ import { Button } from "@/components/ui/Button";
 export function Hero() {
   return (
     <section className="relative overflow-hidden py-20 sm:py-32">
-      {/* Background gradient */}
+      {/* Animated background orbs */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-indigo-50 dark:from-gray-950 dark:via-gray-950 dark:to-indigo-950/20" />
-        <div className="absolute left-1/4 top-1/4 h-72 w-72 rounded-full bg-primary-200/40 blur-3xl dark:bg-primary-900/20" />
-        <div className="absolute right-1/4 bottom-1/4 h-72 w-72 rounded-full bg-indigo-200/40 blur-3xl dark:bg-indigo-900/20" />
+        <div
+          className="absolute left-1/4 top-1/4 h-96 w-96 rounded-full bg-emerald-500/20 blur-3xl"
+          style={{ animation: "blob 7s infinite" }}
+        />
+        <div
+          className="absolute right-1/4 top-1/3 h-72 w-72 rounded-full bg-teal-500/20 blur-3xl"
+          style={{ animation: "blob 7s infinite 2s" }}
+        />
+        <div
+          className="absolute left-1/2 bottom-1/4 h-80 w-80 rounded-full bg-emerald-600/15 blur-3xl"
+          style={{ animation: "blob 7s infinite 4s" }}
+        />
       </div>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl dark:text-white">
+          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
             Stay Compliant.{" "}
-            <span className="text-primary-600 dark:text-primary-400">
+            <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
               Ship Faster.
             </span>
           </h1>
-          <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-400">
+          <p className="mt-6 text-lg leading-8 text-gray-400">
             SmoothOpsX auto-monitors regulatory changes for your tech stack and
             tells you exactly what to fix - in plain English.
           </p>
@@ -30,6 +39,67 @@ export function Hero() {
               See How It Works
             </Button>
           </div>
+        </div>
+
+        {/* 3D Glass mockup card */}
+        <div className="mt-20 flex justify-center">
+          <div
+            className="relative w-full max-w-2xl"
+            style={{ perspective: "1000px" }}
+          >
+            <div
+              className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl shadow-emerald-500/10"
+              style={{ transform: "rotateX(5deg) rotateY(-2deg)" }}
+            >
+              {/* Mockup dashboard header */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="h-3 w-3 rounded-full bg-emerald-400" />
+                  <div className="h-3 w-3 rounded-full bg-teal-400" />
+                  <div className="h-3 w-3 rounded-full bg-white/20" />
+                </div>
+                <div className="h-4 w-32 rounded bg-white/10" />
+              </div>
+              {/* Mockup stats */}
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
+                  <p className="text-2xl font-bold text-emerald-400">98%</p>
+                  <p className="text-xs text-gray-500 mt-1">Compliant</p>
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
+                  <p className="text-2xl font-bold text-teal-400">24</p>
+                  <p className="text-xs text-gray-500 mt-1">Tracked</p>
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
+                  <p className="text-2xl font-bold text-white">3</p>
+                  <p className="text-xs text-gray-500 mt-1">Action Items</p>
+                </div>
+              </div>
+              {/* Mockup rows */}
+              <div className="space-y-3">
+                <div className="h-4 w-full rounded bg-white/5" />
+                <div className="h-4 w-3/4 rounded bg-white/5" />
+                <div className="h-4 w-5/6 rounded bg-white/5" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Floating pill badges */}
+        <div className="absolute top-32 left-10 hidden lg:block animate-float">
+          <span className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-full px-4 py-2 text-sm text-gray-300 shadow-lg shadow-emerald-500/5">
+            GDPR
+          </span>
+        </div>
+        <div className="absolute top-48 right-16 hidden lg:block animate-float [animation-delay:1s]">
+          <span className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-full px-4 py-2 text-sm text-gray-300 shadow-lg shadow-emerald-500/5">
+            SOC2
+          </span>
+        </div>
+        <div className="absolute bottom-40 left-20 hidden lg:block animate-float [animation-delay:2s]">
+          <span className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-full px-4 py-2 text-sm text-gray-300 shadow-lg shadow-emerald-500/5">
+            HIPAA
+          </span>
         </div>
       </div>
     </section>

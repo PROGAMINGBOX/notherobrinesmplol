@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
 
 const tiers = [
   {
@@ -58,13 +57,13 @@ const tiers = [
 
 export function Pricing() {
   return (
-    <section id="pricing" className="py-20 sm:py-28 bg-gray-50 dark:bg-gray-950/50">
+    <section id="pricing" className="py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white">
+          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Simple, transparent pricing
           </h2>
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">
+          <p className="mt-4 text-lg text-gray-400">
             Choose the plan that fits your team. No hidden fees.
           </p>
         </div>
@@ -73,34 +72,34 @@ export function Pricing() {
           {tiers.map((tier) => (
             <div
               key={tier.name}
-              className={`relative rounded-2xl border p-8 ${
+              className={`relative rounded-2xl border p-8 backdrop-blur-xl transition-all duration-300 ${
                 tier.featured
-                  ? "border-primary-500 bg-white shadow-lg scale-105 dark:border-primary-400 dark:bg-gray-900"
-                  : "border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900"
+                  ? "border-emerald-500/50 bg-white/5 shadow-xl shadow-emerald-500/20 scale-105"
+                  : "border-white/10 bg-white/5 hover:border-white/20"
               }`}
             >
               {tier.featured && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <Badge color="blue" size="md">
+                  <span className="inline-flex items-center rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 px-3 py-1 text-xs font-medium text-white shadow-lg shadow-emerald-500/25">
                     Most Popular
-                  </Badge>
+                  </span>
                 </div>
               )}
               <div className="text-center">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-lg font-semibold text-white">
                   {tier.name}
                 </h3>
                 <div className="mt-4 flex items-baseline justify-center gap-1">
-                  <span className="text-4xl font-bold text-gray-900 dark:text-white">
+                  <span className="text-4xl font-bold text-white">
                     {tier.price}
                   </span>
                   {tier.period && (
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                    <span className="text-sm text-gray-400">
                       {tier.period}
                     </span>
                   )}
                 </div>
-                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                <p className="mt-2 text-sm text-gray-400">
                   {tier.description}
                 </p>
               </div>
@@ -109,7 +108,7 @@ export function Pricing() {
                 {tier.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
                     <svg
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary-500"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-400"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -121,7 +120,7 @@ export function Pricing() {
                         d="M5 13l4 4L19 7"
                       />
                     </svg>
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
+                    <span className="text-sm text-gray-300">
                       {feature}
                     </span>
                   </li>

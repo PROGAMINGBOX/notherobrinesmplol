@@ -1,0 +1,28 @@
+{
+  "id": "FEAT-003",
+  "type": "feat",
+  "description": "Redesign auth pages (signin, signup, auth layout) and onboarding page with glassmorphism styling, animated background orbs, and emerald accents.",
+  "status": "completed",
+  "steps": [
+    "Rewrite app/(auth)/layout.tsx: Dark bg-gray-950 background. Add 2-3 animated gradient orbs (emerald/teal blurred circles with 'blob' animation at different delays, positioned absolute). Center content. Logo uses emerald gradient text (from-emerald-400 to-teal-400 bg-clip-text text-transparent). Remove all light mode classes.",
+    "Update app/(auth)/signin/page.tsx: The Card component already has glass styling from FEAT-001. Update text colors: h1 text-white, subtitle text-gray-400. Error box: bg-red-500/10 border border-red-500/30 text-red-400. Link text: text-emerald-400 hover:text-emerald-300. Remove all dark: prefixed classes (since dark is default now) and remove light mode classes. Keep all form logic and functionality intact.",
+    "Update app/(auth)/signup/page.tsx: Same approach as signin. Text colors: h1 text-white, subtitle text-gray-400. Error/validation styling: bg-red-500/10 border border-red-500/30 text-red-400. Link: text-emerald-400 hover:text-emerald-300. Remove light mode references. Keep all form validation logic and functionality intact.",
+    "Rewrite app/onboarding/page.tsx: Outer container bg-gray-950 with subtle animated orb in background. Main content wrapper uses glass card styling (bg-white/5 backdrop-blur-xl border-white/10 rounded-2xl p-8). Progress bar: bg-white/10 track with bg-gradient-to-r from-emerald-500 to-teal-500 fill. Step heading text-white. Selection buttons/chips: unselected = bg-white/5 border-white/10, selected = bg-emerald-500/20 border-emerald-500/50 text-emerald-300. Region list items same pattern. Navigation buttons use the updated Button component. Remove all light mode classes. Keep all business logic (step state, form submission, toggles) intact."
+  ],
+  "acceptance_criteria": [
+    "Auth layout has dark background with animated gradient orbs",
+    "Auth layout logo uses emerald gradient text",
+    "Signin page uses glass card with emerald-accented links and buttons",
+    "Signup page matches signin styling approach",
+    "Onboarding has glass container with emerald gradient progress bar",
+    "Onboarding selection chips use emerald colors when selected",
+    "No light mode classes remain (no bg-gray-50, bg-white without opacity, text-gray-900 etc)",
+    "All form logic and API calls remain unchanged",
+    "npm run build succeeds without errors"
+  ],
+  "verification": [
+    "Run npm run build in /projects/sandbox/notherobrinesmplol and confirm exit code 0"
+  ],
+  "blocked_reason": null,
+  "findings": "All four files updated successfully. Auth layout has animated gradient orbs with blob animation. Signin/signup pages use glass card (from FEAT-001 Card component), emerald links, red error styling with opacity borders. Onboarding uses glass container with emerald gradient progress bar and emerald selection chips. Build passes cleanly."
+}

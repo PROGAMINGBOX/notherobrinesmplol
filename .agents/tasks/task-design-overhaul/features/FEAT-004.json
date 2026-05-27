@@ -1,0 +1,30 @@
+{
+  "id": "FEAT-004",
+  "type": "feat",
+  "description": "Redesign the entire dashboard with glassmorphism: sidebar, top bar, stats cards, filter bar, regulation cards, and main page. All components get glass treatment with emerald accents.",
+  "status": "completed",
+  "steps": [
+    "Rewrite app/dashboard/layout.tsx: Background bg-gray-950. Sidebar: bg-white/5 backdrop-blur-xl border-r border-white/10. Logo: emerald gradient text. Nav items: inactive = text-gray-400 hover:bg-white/5 hover:text-white; active = bg-emerald-500/10 text-emerald-400 border-l-2 border-emerald-400 or similar indicator. Sign out button: text-gray-400 hover:text-white hover:bg-white/5. Top bar: bg-white/5 backdrop-blur-xl border-b border-white/10. Mobile overlay: bg-black/60 backdrop-blur-sm. User avatar circle: bg-emerald-500/20 text-emerald-400. Remove all light mode classes.",
+    "Rewrite components/dashboard/ComplianceStats.tsx: Stats cards use glass styling: bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl. Label text: text-gray-400. Value text: text-white font-bold. For the main value numbers, add bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent for a gradient number effect (except critical alerts which stays red). Remove all light/dark mode conditional classes.",
+    "Rewrite components/dashboard/FilterBar.tsx: Search input and select dropdowns use glass styling: bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-emerald-500 focus:ring-emerald-500/20. Search icon text-gray-500. Select options may need bg-gray-900 for the dropdown menu (browser native selects). Remove all light mode classes.",
+    "Rewrite components/dashboard/RegulationCard.tsx: Card container: bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 hover:border-emerald-500/30 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-200. Add a left border color accent based on severity: border-l-2 with border-l-red-500 for CRITICAL, border-l-amber-500 for WARNING, border-l-emerald-500 for INFO. Title text-white. Summary text-gray-400. Date text-gray-500. Keep Link wrapper and all existing props/logic.",
+    "Update app/dashboard/page.tsx: Update heading text-white. Loading skeleton: bg-white/5 rounded-2xl animate-pulse. Empty state text: text-gray-400. Error box: bg-red-500/10 border border-red-500/30 text-red-400. Onboarding CTA: button should use emerald gradient (already handled by Button component). Remove all light mode conditional classes (dark: prefixes where the dark version is now the only version)."
+  ],
+  "acceptance_criteria": [
+    "Dashboard sidebar uses glass styling with emerald active indicators",
+    "Top bar uses glass styling with border-bottom",
+    "Stats cards are glassmorphic with emerald gradient numbers",
+    "Filter bar inputs use glass styling with emerald focus states",
+    "Regulation cards have glass bg with severity-colored left border",
+    "Regulation cards have hover glow effect",
+    "Dashboard page skeleton loaders use glass styling",
+    "No light mode classes remain in any dashboard file",
+    "All existing functionality (filtering, API calls, navigation) remains intact",
+    "npm run build succeeds without errors"
+  ],
+  "verification": [
+    "Run npm run build in /projects/sandbox/notherobrinesmplol and confirm exit code 0"
+  ],
+  "blocked_reason": null,
+  "findings": "All 5 dashboard files updated with glassmorphism styling. Build passes cleanly. All functionality preserved including sidebar toggle, navigation active detection, debounced filter, and regulation card links. Post-review fixes applied: Hero floating pills switched from inline style animation to animate-float class with [animation-delay:Xs] arbitrary properties (ensures Tailwind JIT emits @keyframes float). Card.tsx updated to use .glass utility class so the @supports fallback in globals.css properly targets rendered elements."
+}
