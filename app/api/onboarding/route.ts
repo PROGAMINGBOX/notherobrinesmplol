@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getAuthSession } from "@/lib/utils";
+import { getAuthSession } from "@/lib/auth-session";
 import { prisma } from "@/lib/prisma";
 
 const ALLOWED_BUSINESS_TYPES = [

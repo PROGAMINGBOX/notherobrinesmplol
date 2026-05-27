@@ -1,18 +1,31 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { getToken } from "next-auth/jwt";
+import { jwtVerify } from "jose";
+
+const secret = new TextEncoder().encode(
+  process.env.NEXTAUTH_SECRET || "dev-secret-change-me"
+);
 
 export async function middleware(request: NextRequest) {
-  const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
   const { pathname } = request.nextUrl;
+  const token = request.cookies.get("auth-token")?.value;
 
-  // Redirect authenticated users away from auth pages
-  if (token && (pathname === "/signin" || pathname === "/signup")) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+  let isAuthenticated = false;
+  if (token) {
+    try {
+      await jwtVerify(token, secret);
+      isAuthenticated = true;
+    } catch {}
   }
 
-  // Protect dashboard and onboarding routes
-  if (!token && (pathname.startsWith("/dashboard") || pathname.startsWith("/onboarding"))) {
+  if (pathname === "/signin" || pathname === "/signup") {
+    if (isAuthenticated) {
+      return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
+    return NextResponse.next();
+  }
+
+  if (!isAuthenticated) {
     return NextResponse.redirect(new URL("/signin", request.url));
   }
 
