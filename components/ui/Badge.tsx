@@ -11,13 +11,13 @@ interface BadgeProps {
 }
 
 const colorStyles: Record<BadgeColor, string> = {
-  red: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
+  red: "bg-red-500/20 text-red-400 border border-red-500/30 backdrop-blur-sm",
   amber:
-    "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400",
-  blue: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400",
+    "bg-amber-500/20 text-amber-400 border border-amber-500/30 backdrop-blur-sm",
+  blue: "bg-blue-500/20 text-blue-400 border border-blue-500/30 backdrop-blur-sm",
   green:
-    "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
-  gray: "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300",
+    "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 backdrop-blur-sm",
+  gray: "bg-white/10 text-gray-300 border border-white/10 backdrop-blur-sm",
 };
 
 const sizeStyles: Record<BadgeSize, string> = {
