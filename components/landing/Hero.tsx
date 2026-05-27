@@ -86,26 +86,17 @@ export function Hero() {
         </div>
 
         {/* Floating pill badges */}
-        <div
-          className="absolute top-32 left-10 hidden lg:block"
-          style={{ animation: "float 6s ease-in-out infinite" }}
-        >
+        <div className="absolute top-32 left-10 hidden lg:block animate-float">
           <span className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-full px-4 py-2 text-sm text-gray-300 shadow-lg shadow-emerald-500/5">
             GDPR
           </span>
         </div>
-        <div
-          className="absolute top-48 right-16 hidden lg:block"
-          style={{ animation: "float 6s ease-in-out infinite 1s" }}
-        >
+        <div className="absolute top-48 right-16 hidden lg:block animate-float [animation-delay:1s]">
           <span className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-full px-4 py-2 text-sm text-gray-300 shadow-lg shadow-emerald-500/5">
             SOC2
           </span>
         </div>
-        <div
-          className="absolute bottom-40 left-20 hidden lg:block"
-          style={{ animation: "float 6s ease-in-out infinite 2s" }}
-        >
+        <div className="absolute bottom-40 left-20 hidden lg:block animate-float [animation-delay:2s]">
           <span className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-full px-4 py-2 text-sm text-gray-300 shadow-lg shadow-emerald-500/5">
             HIPAA
           </span>
