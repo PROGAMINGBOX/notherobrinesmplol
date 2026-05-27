@@ -91,15 +91,15 @@ export default function SignUpPage() {
 
   return (
     <Card className="w-full max-w-md">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+      <h1 className="text-2xl font-bold text-white">
         Create Account
       </h1>
-      <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+      <p className="mt-2 text-sm text-gray-400">
         Get started with your free account.
       </p>
 
       {serverError && (
-        <div className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-900/20 dark:text-red-400">
+        <div className="mt-4 rounded-lg bg-red-500/10 border border-red-500/30 px-4 py-3 text-sm text-red-400">
           {serverError}
         </div>
       )}
@@ -156,11 +156,11 @@ export default function SignUpPage() {
         </Button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
+      <p className="mt-6 text-center text-sm text-gray-400">
         Already have an account?{" "}
         <Link
           href="/signin"
-          className="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400"
+          className="font-medium text-emerald-400 hover:text-emerald-300"
         >
           Sign in
         </Link>
