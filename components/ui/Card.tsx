@@ -10,16 +10,16 @@ interface CardProps {
 export function Card({ children, className = "", header, footer }: CardProps) {
   return (
     <div
-      className={`glass shadow-xl shadow-emerald-500/5 transition-colors hover:border-white/20 ${className}`}
+      className={`glass-premium glass-shine shadow-xl shadow-emerald-500/5 transition-all duration-300 hover:border-white/20 hover:shadow-emerald-500/10 hover:-translate-y-0.5 will-change-transform ${className}`}
     >
       {header && (
-        <div className="border-b border-white/10 px-6 py-4">
+        <div className="relative z-10 border-b border-white/10 px-6 py-4">
           {header}
         </div>
       )}
-      <div className="px-6 py-4">{children}</div>
+      <div className="relative z-10 px-6 py-4">{children}</div>
       {footer && (
-        <div className="border-t border-white/10 px-6 py-4">
+        <div className="relative z-10 border-t border-white/10 px-6 py-4">
           {footer}
         </div>
       )}

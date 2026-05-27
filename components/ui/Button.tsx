@@ -28,13 +28,13 @@ type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:brightness-110 shadow-lg shadow-emerald-500/25",
+    "relative overflow-hidden bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-500 bg-[length:200%_100%] animate-gradient-shift text-white hover:brightness-110 hover:scale-[1.02] hover:shadow-xl shadow-lg shadow-emerald-500/25 will-change-transform",
   secondary:
-    "bg-white/10 text-gray-100 backdrop-blur border border-white/10 hover:bg-white/15 hover:border-white/20",
+    "relative overflow-hidden bg-white/10 text-gray-100 backdrop-blur border border-white/10 hover:bg-white/15 hover:border-white/20 hover:scale-[1.02] will-change-transform",
   outline:
-    "border border-white/20 text-gray-300 hover:bg-white/5 hover:border-white/30",
+    "relative overflow-hidden border border-white/20 text-gray-300 hover:bg-white/5 hover:border-white/30 hover:scale-[1.02] will-change-transform",
   ghost:
-    "text-gray-300 hover:bg-white/5 hover:text-white",
+    "relative overflow-hidden text-gray-300 hover:bg-white/5 hover:text-white",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {

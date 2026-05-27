@@ -94,7 +94,7 @@ export default function DashboardPage() {
 
   if (needsOnboarding) {
     return (
-      <div className="flex flex-col items-center justify-center py-16">
+      <div className="flex flex-col items-center justify-center py-16 animate-scale-in">
         <h2 className="text-xl font-semibold text-white mb-2">
           Complete Your Profile
         </h2>
@@ -113,16 +113,20 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-white">
+      <h1 className="text-2xl font-bold text-white animate-slide-up">
         Compliance Dashboard
       </h1>
 
-      <ComplianceStats {...stats} />
+      <div className="animate-scale-in [animation-delay:0.1s] opacity-0 [animation-fill-mode:forwards]">
+        <ComplianceStats {...stats} />
+      </div>
 
-      <FilterBar onFilterChange={handleFilterChange} />
+      <div className="animate-slide-up [animation-delay:0.2s] opacity-0 [animation-fill-mode:forwards]">
+        <FilterBar onFilterChange={handleFilterChange} />
+      </div>
 
       {error && (
-        <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+        <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm animate-scale-in">
           {error}
         </div>
       )}
@@ -137,15 +141,21 @@ export default function DashboardPage() {
           ))}
         </div>
       ) : regulations.length === 0 ? (
-        <div className="text-center py-12">
+        <div className="text-center py-12 animate-scale-in">
           <p className="text-gray-400">
             No regulations found matching your filters.
           </p>
         </div>
       ) : (
         <div className="space-y-4">
-          {regulations.map((reg) => (
-            <RegulationCard key={reg.id} regulation={reg} />
+          {regulations.map((reg, i) => (
+            <div
+              key={reg.id}
+              className="animate-slide-up"
+              style={{ animationDelay: `${0.3 + i * 0.05}s`, animationFillMode: "forwards", opacity: 0 }}
+            >
+              <RegulationCard regulation={reg} />
+            </div>
           ))}
         </div>
       )}

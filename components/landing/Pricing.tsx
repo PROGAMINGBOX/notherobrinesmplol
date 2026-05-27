@@ -59,7 +59,7 @@ export function Pricing() {
   return (
     <section id="pricing" className="py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="mx-auto max-w-2xl text-center animate-slide-up">
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Simple, transparent pricing
           </h2>
@@ -69,15 +69,18 @@ export function Pricing() {
         </div>
 
         <div className="mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-8 lg:grid-cols-3">
-          {tiers.map((tier) => (
+          {tiers.map((tier, i) => (
             <div
               key={tier.name}
-              className={`relative rounded-2xl border p-8 backdrop-blur-xl transition-all duration-300 ${
+              className={`relative rounded-2xl border p-8 backdrop-blur-xl transition-all duration-300 overflow-hidden animate-scale-in will-change-transform hover:-translate-y-1 ${
                 tier.featured
                   ? "border-emerald-500/50 bg-white/5 shadow-xl shadow-emerald-500/20 scale-105"
-                  : "border-white/10 bg-white/5 hover:border-white/20"
+                  : "border-white/10 bg-white/5 hover:border-white/20 hover:shadow-lg hover:shadow-emerald-500/5"
               }`}
+              style={{ animationDelay: `${i * 0.15}s`, animationFillMode: "forwards", opacity: 0 }}
             >
+              {/* Glass shine effect */}
+              <div className="absolute inset-0 -translate-x-full hover:translate-x-full transition-transform duration-[2s] bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none" />
               {tier.featured && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                   <span className="inline-flex items-center rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 px-3 py-1 text-xs font-medium text-white shadow-lg shadow-emerald-500/25">

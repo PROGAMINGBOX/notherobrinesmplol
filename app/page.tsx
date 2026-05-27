@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main>
+      <main className="page-enter">
         <Hero />
         <Features />
         <Pricing />

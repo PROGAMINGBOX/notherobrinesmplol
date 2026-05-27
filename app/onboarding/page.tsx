@@ -92,10 +92,11 @@ export default function OnboardingPage() {
 
   return (
     <div className="relative min-h-screen bg-gray-950 flex flex-col items-center justify-center p-4 overflow-hidden">
-      {/* Background animated orb */}
+      {/* Background animated orbs */}
       <div className="absolute top-1/3 right-1/4 h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl animate-blob" />
+      <div className="absolute bottom-1/4 left-1/4 h-72 w-72 rounded-full bg-teal-500/10 blur-3xl animate-blob [animation-delay:3s]" />
 
-      <div className="relative z-10 w-full max-w-2xl bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
+      <div className="relative z-10 w-full max-w-2xl glass-premium p-8 animate-scale-in">
         <h1 className="text-2xl font-bold text-center mb-2 text-white">
           Set up your compliance profile
         </h1>
@@ -103,23 +104,25 @@ export default function OnboardingPage() {
           Step {step} of 3
         </p>
 
-        {/* Progress bar */}
-        <div className="w-full bg-white/10 rounded-full h-2 mb-8">
+        {/* Progress bar with shimmer */}
+        <div className="w-full bg-white/10 rounded-full h-2 mb-8 overflow-hidden">
           <div
-            className="bg-gradient-to-r from-emerald-500 to-teal-500 h-2 rounded-full transition-all duration-300"
+            className="relative bg-gradient-to-r from-emerald-500 to-teal-500 h-2 rounded-full transition-all duration-500"
             style={{ width: `${(step / 3) * 100}%` }}
-          />
+          >
+            <div className="absolute inset-0 animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+          </div>
         </div>
 
         {error && (
-          <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+          <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm animate-scale-in">
             {error}
           </div>
         )}
 
         {/* Step 1: Business Type */}
         {step === 1 && (
-          <div>
+          <div className="animate-slide-in-right">
             <h2 className="text-lg font-semibold mb-4 text-white">
               What type of business do you run?
             </h2>
@@ -128,10 +131,10 @@ export default function OnboardingPage() {
                 <button
                   key={type}
                   onClick={() => setBusinessType(type)}
-                  className={`p-4 rounded-lg border text-sm font-medium transition-all ${
+                  className={`p-4 rounded-lg border text-sm font-medium transition-all duration-200 ${
                     businessType === type
-                      ? "border-emerald-500/50 bg-emerald-500/20 text-emerald-300"
-                      : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20"
+                      ? "border-emerald-500/50 bg-emerald-500/20 text-emerald-300 scale-[1.03] shadow-lg shadow-emerald-500/10"
+                      : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:scale-[1.02]"
                   }`}
                 >
                   {type}
@@ -143,7 +146,7 @@ export default function OnboardingPage() {
 
         {/* Step 2: Tech Stack */}
         {step === 2 && (
-          <div>
+          <div className="animate-slide-in-right">
             <h2 className="text-lg font-semibold mb-4 text-white">
               What technologies do you use?
             </h2>
@@ -152,10 +155,10 @@ export default function OnboardingPage() {
                 <button
                   key={tech}
                   onClick={() => toggleTechStack(tech)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                     techStack.includes(tech)
-                      ? "bg-emerald-500/20 border border-emerald-500/50 text-emerald-300"
-                      : "bg-white/5 border border-white/10 text-gray-300 hover:border-white/20"
+                      ? "bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 scale-[1.05] shadow-lg shadow-emerald-500/10"
+                      : "bg-white/5 border border-white/10 text-gray-300 hover:border-white/20 hover:scale-[1.02]"
                   }`}
                 >
                   {tech}
@@ -167,7 +170,7 @@ export default function OnboardingPage() {
 
         {/* Step 3: Regions */}
         {step === 3 && (
-          <div>
+          <div className="animate-slide-in-right">
             <h2 className="text-lg font-semibold mb-4 text-white">
               Which regions do you operate in?
             </h2>
@@ -176,10 +179,10 @@ export default function OnboardingPage() {
                 <button
                   key={region.value}
                   onClick={() => toggleRegion(region.value)}
-                  className={`w-full text-left px-4 py-3 rounded-lg border text-sm font-medium transition-all ${
+                  className={`w-full text-left px-4 py-3 rounded-lg border text-sm font-medium transition-all duration-200 ${
                     regions.includes(region.value)
-                      ? "border-emerald-500/50 bg-emerald-500/20 text-emerald-300"
-                      : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20"
+                      ? "border-emerald-500/50 bg-emerald-500/20 text-emerald-300 scale-[1.01] shadow-lg shadow-emerald-500/10"
+                      : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:scale-[1.005]"
                   }`}
                 >
                   {region.label}

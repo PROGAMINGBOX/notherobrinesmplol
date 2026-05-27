@@ -23,7 +23,7 @@ export function Testimonials() {
   return (
     <section className="py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="mx-auto max-w-2xl text-center animate-slide-up">
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Loved by{" "}
             <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
@@ -36,11 +36,14 @@ export function Testimonials() {
         </div>
 
         <div className="mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-3">
-          {testimonials.map((testimonial) => (
+          {testimonials.map((testimonial, i) => (
             <div
               key={testimonial.author}
-              className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 transition-all duration-300 hover:border-white/20"
+              className="group relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 transition-all duration-300 hover:border-white/20 hover:shadow-lg hover:shadow-emerald-500/5 hover:-translate-y-1 overflow-hidden animate-slide-up will-change-transform"
+              style={{ animationDelay: `${i * 0.15}s`, animationFillMode: "forwards", opacity: 0 }}
             >
+              {/* Shimmer on hover */}
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none" />
               {/* Quote icon */}
               <svg
                 className="h-8 w-8 text-emerald-400 mb-4"

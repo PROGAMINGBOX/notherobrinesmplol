@@ -62,7 +62,7 @@ export default function DashboardLayout({
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-50 h-full w-64 bg-white/5 backdrop-blur-xl border-r border-white/10 transform transition-transform duration-200 lg:translate-x-0 ${
+        className={`fixed top-0 left-0 z-50 h-full w-64 bg-white/5 backdrop-blur-xl border-r border-white/10 transform transition-transform duration-200 lg:translate-x-0 lg:animate-slide-in-left ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -81,9 +81,9 @@ export default function DashboardLayout({
                 key={item.href}
                 href={item.href}
                 onClick={() => setSidebarOpen(false)}
-                className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-[1.02] will-change-transform ${
                   isActive(item.href)
-                    ? "bg-emerald-500/10 text-emerald-400 border-l-2 border-emerald-400"
+                    ? "bg-emerald-500/10 text-emerald-400 border-l-2 border-emerald-400 animate-pulse-glow"
                     : "text-gray-400 hover:bg-white/5 hover:text-white"
                 }`}
               >
@@ -97,7 +97,7 @@ export default function DashboardLayout({
           <div className="p-3 border-t border-white/10">
             <button
               onClick={() => signOut()}
-              className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
+              className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-200 hover:scale-[1.02]"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -110,7 +110,7 @@ export default function DashboardLayout({
 
       {/* Main content */}
       <div className="lg:pl-64">
-        {/* Top bar */}
+        {/* Top bar with subtle gradient border */}
         <header className="sticky top-0 z-30 h-16 bg-white/5 backdrop-blur-xl border-b border-white/10 flex items-center px-4 lg:px-6">
           <button
             onClick={() => setSidebarOpen(true)}
@@ -128,8 +128,8 @@ export default function DashboardLayout({
           </div>
         </header>
 
-        {/* Page content */}
-        <main className="p-4 lg:p-6">{children}</main>
+        {/* Page content with page-enter animation */}
+        <main className="p-4 lg:p-6 page-enter">{children}</main>
       </div>
     </div>
   );

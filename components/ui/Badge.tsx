@@ -8,6 +8,7 @@ interface BadgeProps {
   color?: BadgeColor;
   size?: BadgeSize;
   className?: string;
+  pulse?: boolean;
 }
 
 const colorStyles: Record<BadgeColor, string> = {
@@ -30,10 +31,13 @@ export function Badge({
   color = "gray",
   size = "sm",
   className = "",
+  pulse = false,
 }: BadgeProps) {
+  const pulseClass = pulse || color === "red" ? "animate-pulse-glow" : "";
+
   return (
     <span
-      className={`inline-flex items-center font-medium rounded-full ${colorStyles[color]} ${sizeStyles[size]} ${className}`}
+      className={`inline-flex items-center font-medium rounded-full ${colorStyles[color]} ${sizeStyles[size]} ${pulseClass} ${className}`}
     >
       {children}
     </span>
