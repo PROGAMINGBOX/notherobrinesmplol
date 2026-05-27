@@ -8,10 +8,13 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-800 dark:bg-gray-950/80">
+    <nav className="sticky top-0 z-50 border-b border-white/10 bg-white/5 backdrop-blur-xl">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="text-xl font-bold text-primary-600 dark:text-primary-400">
+          <Link
+            href="/"
+            className="text-xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent"
+          >
             SmoothOpsX
           </Link>
 
@@ -19,13 +22,13 @@ export function Navbar() {
           <div className="hidden items-center gap-6 md:flex">
             <a
               href="#features"
-              className="text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+              className="text-sm font-medium text-gray-400 hover:text-white transition-colors"
             >
               Features
             </a>
             <a
               href="#pricing"
-              className="text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+              className="text-sm font-medium text-gray-400 hover:text-white transition-colors"
             >
               Pricing
             </a>
@@ -39,7 +42,7 @@ export function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+            className="md:hidden p-2 rounded-lg text-gray-400 hover:bg-white/10"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -70,18 +73,18 @@ export function Navbar() {
 
         {/* Mobile menu */}
         {mobileMenuOpen && (
-          <div className="border-t border-gray-200 py-4 md:hidden dark:border-gray-800">
+          <div className="border-t border-white/10 py-4 md:hidden">
             <div className="flex flex-col gap-3">
               <a
                 href="#features"
-                className="px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+                className="px-3 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Features
               </a>
               <a
                 href="#pricing"
-                className="px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+                className="px-3 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Pricing
