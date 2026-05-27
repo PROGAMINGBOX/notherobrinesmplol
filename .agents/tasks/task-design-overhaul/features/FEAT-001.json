@@ -1,0 +1,29 @@
+{
+  "id": "FEAT-001",
+  "type": "feat",
+  "description": "Set up the glassmorphism design foundation: update tailwind.config.ts with emerald brand colors and animation utilities, rewrite globals.css with CSS keyframe animations for floating orbs, glass utility classes, and 3D tilt hover effect. Update base UI components (Button, Card, Input, Badge) with glassmorphism styling.",
+  "status": "in_progress",
+  "steps": [
+    "Update tailwind.config.ts: Replace primary color palette with emerald/teal colors (emerald-400 to teal-500 range). Add custom animation keyframes: 'float' (gentle up/down), 'blob' (morphing shape), 'glow' (pulsing opacity). Add custom backdrop-blur values. Remove darkMode: 'class' since dark is always-on via html class.",
+    "Rewrite app/globals.css: Remove light mode CSS variables entirely. Set dark-only variables with emerald accent (--primary: emerald-500, --background: gray-950 shades). Add @keyframes for 'float' animation (translateY oscillation over 6s), 'blob' animation (scale + translate over 7s), and 'glow-pulse' (opacity oscillation). Add utility class '.glass' for bg-white/5 backdrop-blur-xl border-white/10 rounded-2xl. Add '.glass-hover' for hover border glow. Add '.tilt-card' class that uses CSS perspective transform on hover (rotateX/rotateY subtle 2-3deg). Add smooth body background gradient from gray-950 to slate-950.",
+    "Rewrite components/ui/Card.tsx: Replace solid bg-white/dark:bg-gray-900 with glassmorphism styles: bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl shadow-emerald-500/5. Keep the same props interface (children, className, header, footer). Add hover:border-white/20 transition.",
+    "Rewrite components/ui/Button.tsx: Update variant styles - primary: bg-gradient-to-r from-emerald-500 to-teal-500 with hover brightness increase and shadow-lg shadow-emerald-500/25; secondary: glass style bg-white/10 backdrop-blur border-white/10; outline: border-white/20 with hover bg-white/5; ghost: hover bg-white/5. Update focus ring to emerald. Keep all existing props and logic intact.",
+    "Rewrite components/ui/Input.tsx: Update input styling to glass look: bg-white/5 border-white/10 backdrop-blur-sm, focus:border-emerald-500 focus:ring-emerald-500/20. Update label color to gray-300. Keep all existing props and forwardRef logic intact.",
+    "Update components/ui/Badge.tsx: Keep the same color variants but update to glass-style backgrounds. red: bg-red-500/20 text-red-400 border border-red-500/30. amber: bg-amber-500/20 text-amber-400 border border-amber-500/30. blue: bg-blue-500/20 text-blue-400 border border-blue-500/30. green: bg-emerald-500/20 text-emerald-400 border border-emerald-500/30. gray: bg-white/10 text-gray-300 border border-white/10. Add backdrop-blur-sm to all."
+  ],
+  "acceptance_criteria": [
+    "tailwind.config.ts has emerald/teal color palette as primary and animation utilities defined",
+    "globals.css contains @keyframes for float, blob, and glow-pulse animations",
+    "globals.css contains .glass, .glass-hover, and .tilt-card utility classes",
+    "Card component uses bg-white/5 backdrop-blur-xl border-white/10 rounded-2xl",
+    "Button primary variant uses emerald-to-teal gradient",
+    "Input uses glass styling with bg-white/5 and emerald focus ring",
+    "Badge variants use semi-transparent colored backgrounds with borders",
+    "npm run build succeeds without errors"
+  ],
+  "verification": [
+    "Run npm run build in /projects/sandbox/notherobrinesmplol and confirm exit code 0"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}
