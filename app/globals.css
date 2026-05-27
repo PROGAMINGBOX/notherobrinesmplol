@@ -2,18 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #030712;
-  --foreground: #f9fafb;
-  --card: rgba(255, 255, 255, 0.05);
-  --card-foreground: #f9fafb;
-  --primary: #10b981;
-  --primary-foreground: #ffffff;
-  --muted: #1f2937;
-  --muted-foreground: #9ca3af;
-  --border: rgba(255, 255, 255, 0.1);
-}
-
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -23,7 +11,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background: linear-gradient(135deg, #030712 0%, #0f172a 50%, #030712 100%);
-    color: var(--foreground);
+    color: #f9fafb;
     min-height: 100vh;
   }
 }
@@ -57,32 +45,8 @@
   }
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
-@keyframes blob {
-  0%, 100% {
-    transform: scale(1) translate(0, 0);
-  }
-  33% {
-    transform: scale(1.1) translate(20px, -20px);
-  }
-  66% {
-    transform: scale(0.9) translate(-20px, 20px);
-  }
-}
-
-@keyframes glow-pulse {
-  0%, 100% {
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 0.8;
+@supports not (backdrop-filter: blur(1px)) {
+  .glass {
+    background: rgba(15, 23, 42, 0.8);
   }
 }
