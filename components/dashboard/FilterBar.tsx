@@ -45,7 +45,7 @@ export function FilterBar({ onFilterChange }: FilterBarProps) {
       {/* Search */}
       <div className="relative flex-1">
         <svg
-          className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
+          className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -57,7 +57,7 @@ export function FilterBar({ onFilterChange }: FilterBarProps) {
           placeholder="Search regulations..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-10 pr-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500"
+          className="w-full pl-10 pr-3 py-2 text-sm rounded-lg border border-white/10 bg-white/5 text-white placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
         />
       </div>
 
@@ -65,10 +65,10 @@ export function FilterBar({ onFilterChange }: FilterBarProps) {
       <select
         value={severity}
         onChange={(e) => setSeverity(e.target.value)}
-        className="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+        className="px-3 py-2 text-sm rounded-lg border border-white/10 bg-white/5 text-white focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
       >
         {SEVERITY_OPTIONS.map((opt) => (
-          <option key={opt} value={opt}>{opt === "All" ? "All Severities" : opt}</option>
+          <option key={opt} value={opt} className="bg-gray-900">{opt === "All" ? "All Severities" : opt}</option>
         ))}
       </select>
 
@@ -76,10 +76,10 @@ export function FilterBar({ onFilterChange }: FilterBarProps) {
       <select
         value={category}
         onChange={(e) => setCategory(e.target.value)}
-        className="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+        className="px-3 py-2 text-sm rounded-lg border border-white/10 bg-white/5 text-white focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
       >
         {CATEGORY_OPTIONS.map((opt) => (
-          <option key={opt} value={opt}>{opt === "All" ? "All Categories" : opt}</option>
+          <option key={opt} value={opt} className="bg-gray-900">{opt === "All" ? "All Categories" : opt}</option>
         ))}
       </select>
 
@@ -87,10 +87,10 @@ export function FilterBar({ onFilterChange }: FilterBarProps) {
       <select
         value={dateRange}
         onChange={(e) => setDateRange(e.target.value)}
-        className="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+        className="px-3 py-2 text-sm rounded-lg border border-white/10 bg-white/5 text-white focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
       >
         {DATE_OPTIONS.map((opt) => (
-          <option key={opt.value} value={opt.value}>{opt.label}</option>
+          <option key={opt.value} value={opt.value} className="bg-gray-900">{opt.label}</option>
         ))}
       </select>
     </div>
